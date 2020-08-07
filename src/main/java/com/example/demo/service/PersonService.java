@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
-import com.example.demo.model.Person;
+import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PersonService {
@@ -17,11 +19,15 @@ public class PersonService {
     this.personDao = personDao;
   }
 
-  public int addPerson(Person person) {
+  public int addPerson(User person) {
     return personDao.insertPerson(person);
   }
 
-  public List<Person> getAllPerson () {
+  public List<User> getAllPerson () {
     return personDao.selectAllPeople();
+  }
+
+  public Optional<User> getPersonById (UUID id) {
+    return personDao.selectPersonById(id);
   }
 }

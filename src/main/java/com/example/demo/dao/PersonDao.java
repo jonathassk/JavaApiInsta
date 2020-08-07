@@ -1,24 +1,24 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.Person;
+import com.example.demo.model.User;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface PersonDao {
-  int insertPerson(UUID id, Person person);
+  int insertPerson(UUID id, User person);
 
-  default int insertPerson (Person person) {
+  default int insertPerson (User person) {
     UUID id = UUID.randomUUID();
     return insertPerson(id, person);
   }
 
-  List<Person> selectAllPeople ();
+  List<User> selectAllPeople ();
 
   int deletePersonById (UUID id);
 
-  int updatePersonById (UUID id);
+  int updatePersonById (UUID id, User person);
 
-  Optional<Person> selectPersonById (UUID id);
+  Optional<User> selectPersonById (UUID id);
 }
