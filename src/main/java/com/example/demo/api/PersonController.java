@@ -5,6 +5,7 @@ import com.example.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +20,8 @@ public class PersonController {
   }
 
   @PostMapping
-  public void addPerson (@RequestBody User person) {
-    personService.addPerson(person);
+  public void addPerson (@RequestBody User person, @RequestBody Long id) {
+    personService.addPerson(id, person);
   }
 
   @GetMapping

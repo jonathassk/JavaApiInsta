@@ -19,8 +19,8 @@ public class PersonService {
     this.personDao = personDao;
   }
 
-  public int addPerson(User person) {
-    return personDao.insertPerson(person);
+  public int addPerson(Long id, User person) {
+    return personDao.insertPerson(id ,person);
   }
 
   public List<User> getAllPerson () {

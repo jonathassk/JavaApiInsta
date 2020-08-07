@@ -1,8 +1,6 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,21 +8,25 @@ import java.util.UUID;
 @Table(name = "users")
 public class User {
   @Id
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id")
+  private Long id;
+
+  @Column(name = "name")
   private String name;
 
-  public User(UUID id, String name) {
+  public User(Long id, String name) {
     this.id = id;
     this.name = name;
   }
 
-  public User() {}
+  public User() {super();}
 
   public String getName() {
     return name;
   }
 
-  public UUID getId() {
+  public Long getId() {
     return id;
   }
 

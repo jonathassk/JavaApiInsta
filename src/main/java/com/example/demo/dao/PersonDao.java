@@ -7,12 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PersonDao {
-  int insertPerson(UUID id, User person);
-
-  default int insertPerson (User person) {
-    UUID id = UUID.randomUUID();
-    return insertPerson(id, person);
-  }
+  int insertPerson(Long id, User person);
 
   List<User> selectAllPeople ();
 
