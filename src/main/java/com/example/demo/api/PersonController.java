@@ -23,4 +23,10 @@ public class PersonController {
     List<User> list = this.service.findAll();
     return ResponseEntity.ok().body(list);
   }
+
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<User> findById (@PathVariable Long id) {
+    User user = this.service.findById(id);
+    return ResponseEntity.ok().body(user);
+  }
 }
