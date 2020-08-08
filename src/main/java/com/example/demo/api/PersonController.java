@@ -1,36 +1,17 @@
 package com.example.demo.api;
 
 import com.example.demo.model.User;
-import com.example.demo.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Entity;
-import java.util.List;
-import java.util.UUID;
 
-@RequestMapping("/api/v1/person")
+@RequestMapping("/api/v1/users")
 @RestController
 public class PersonController {
-  private final PersonService personService;
-
-  @Autowired
-  public PersonController(PersonService personService) {
-    this.personService = personService;
-  }
-
-  @PostMapping
-  public void addPerson (@RequestBody User person, @RequestBody Long id) {
-    personService.addPerson(id, person);
-  }
 
   @GetMapping
-  public List<User> getPerson () {
-    return personService.getAllPerson();
-  }
-
-  @GetMapping(path = "{id}")
-  public User getPersonById (@PathVariable("id") UUID id) {
-    return personService.getPersonById(id).orElse(null);
+  public ResponseEntity<User> findAll() {
+    User u = new User(1L, "jonathas");
+    return ResponseEntity.ok().body(u);
   }
 }
