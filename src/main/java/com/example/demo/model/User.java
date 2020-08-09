@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,12 +21,18 @@ public class User implements Serializable {
   @Column(name = "name")
   private String name;
 
+  @OneToMany(mappedBy = "client")
+  private List<Advertising> advertisings;
+
   public User(Long id, String name) {
     this.id = id;
     this.name = name;
+    advertisings = new ArrayList<>();
   }
 
-  public User() {super();}
+  public User() {super();
+    advertisings = new ArrayList<>();
+  }
 
   public String getName() {
     return name;
@@ -32,6 +40,10 @@ public class User implements Serializable {
 
   public Long getId() {
     return id;
+  }
+
+  public List<Advertising> getAdvertisings() {
+    return advertisings;
   }
 
   @Override
