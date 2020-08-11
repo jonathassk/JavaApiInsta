@@ -19,6 +19,7 @@ public class Advertising implements Serializable {
   private Instant moment;
 
   @ManyToOne
+  
   @JoinColumn(name = "user_ID")
   private User client;
 

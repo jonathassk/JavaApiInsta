@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class User implements Serializable {
   private String name;
 
   @OneToMany(mappedBy = "client")
+  @JsonIgnore
   private List<Advertising> advertisings;
 
   public User(Long id, String name) {
