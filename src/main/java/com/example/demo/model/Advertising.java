@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -16,10 +18,10 @@ public class Advertising implements Serializable {
   private Long id;
 
  @Column(name = "moment")
+ @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
   private Instant moment;
 
   @ManyToOne
-  
   @JoinColumn(name = "user_ID")
   private User client;
 
