@@ -1,11 +1,7 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,24 +12,18 @@ public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "id")
-  private Long id;
-
-  @Column(name = "name")
+  private long id;
   private String name;
+  private String username;
+  private String password;
+  private String description;
 
-  @OneToMany(mappedBy = "client")
-  @JsonIgnore
-  private List<Advertising> advertisings;
-
-  public User(Long id, String name) {
+  public User (long id, String name, String username, String password, String description) {
+    this.description = description;
     this.id = id;
     this.name = name;
-    advertisings = new ArrayList<>();
-  }
-
-  public User() {super();
-    advertisings = new ArrayList<>();
+    this.password = password;
+    this.username = username;
   }
 
   public String getName() {
@@ -44,8 +34,16 @@ public class User implements Serializable {
     return id;
   }
 
-  public List<Advertising> getAdvertisings() {
-    return advertisings;
+  public String getUsername() {
+    return username;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
   @Override

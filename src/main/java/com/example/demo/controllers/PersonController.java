@@ -1,4 +1,4 @@
-package com.example.demo.api;
+package com.example.demo.controllers;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
