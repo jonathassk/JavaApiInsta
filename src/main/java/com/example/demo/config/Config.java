@@ -20,9 +20,5 @@ public class Config implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    User user1 = new User(null, "jonathas");
-    User user2 = new User(null, "jonathas sales");
-    User user3 = new User(null, "jonathas sales fonseca");
-    this.userRepository.saveAll(Arrays.asList(user1, user2, user3 ));
   }
 }
