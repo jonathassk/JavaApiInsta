@@ -1,19 +1,23 @@
 package com.example.demo.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-//@Entity
-//@Table(name = "users")
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
-
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String name;
   private String username;
   private String password;
   private String description;
+
+  public User () {}
 
   public User (long id, String name, String username, String password, String description) {
     this.description = description;
@@ -41,6 +45,22 @@ public class User implements Serializable {
 
   public String getPassword() {
     return password;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public void setPassword(String password) {

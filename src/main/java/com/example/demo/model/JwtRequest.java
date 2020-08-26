@@ -11,21 +11,41 @@ import java.util.stream.Collectors;
 public class JwtRequest implements UserDetails {
   private String username;
   private String password;
+  private String name;
+  private String description;
   private Boolean enabled;
   private List<JwtRoles> roles;
 
   public JwtRequest() {
   }
 
-  public JwtRequest(String username, String password, Boolean enabled, List<JwtRoles> roles) {
+  public JwtRequest(String username, String password, Boolean enabled, List<JwtRoles> roles, String name, String description) {
     this.username = username;
     this.password = password;
     this.enabled = enabled;
     this.roles = roles;
+    this.description = description;
+    this.name = name;
   }
 
   public String getUsername() {
     return this.username;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public void setUsername(String username) {

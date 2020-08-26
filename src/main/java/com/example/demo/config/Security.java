@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.dependecies.implementation.AuthenticationEntryPointWithJwt;
 import com.example.demo.dependecies.implementation.AuthenticationManagerWithJwt;
+import com.example.demo.service.implementation.UserDetailsServiceWithJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,14 +22,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class Security extends WebSecurityConfigurerAdapter {
-  @Autowired
-  private AuthenticationManagerWithJwt manager;
+  private final AuthenticationManagerWithJwt manager;
+  private final UserDetailsServiceWithJwt jwtUserDetailsService;
+  private final AuthenticationEntryPointWithJwt jwtAuthenticationEntryPoint;
 
   @Autowired
-  private UserDetailsService jwtUserDetailsService;
-
-  @Autowired
-  private AuthenticationEntryPointWithJwt jwtAuthenticationEntryPoint;
+  public Security (AuthenticationManagerWithJwt manager, UserDetailsServiceWithJwt jwtUserDetailsService, AuthenticationEntryPointWithJwt jwtAuthenticationEntryPoint) {
+    this.manager = manager;
+    this.jwtUserDetailsService = jwtUserDetailsService;
+    this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+  }
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

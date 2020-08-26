@@ -1,4 +1,4 @@
-/*package com.example.demo.service.implementation;
+package com.example.demo.service.implementation;
 
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
@@ -16,8 +16,6 @@ public class UserService {
 
   private UserRepository repository;
   private BCryptPasswordEncoder passwordEncrypter;
-
-
 
   @Autowired
   public UserService (UserRepository repository, BCryptPasswordEncoder passwordEncrypter) {
@@ -41,4 +39,3 @@ public class UserService {
     return this.repository.save(user);
   }
 }
-*/
