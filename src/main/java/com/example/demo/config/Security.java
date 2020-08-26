@@ -6,6 +6,7 @@ import com.example.demo.service.implementation.UserDetailsServiceWithJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -39,6 +40,7 @@ public class Security extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
+  @Primary
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
@@ -55,7 +57,8 @@ public class Security extends WebSecurityConfigurerAdapter {
             .csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/api/v1/users").permitAll().anyRequest().authenticated()
+            .antMatchers("/api/v1/create").permitAll()
+            .antMatchers("/api/v1/auth").permitAll().anyRequest().authenticated()
             .and()
             .exceptionHandling()
             .authenticationEntryPoint(jwtAuthenticationEntryPoint)
