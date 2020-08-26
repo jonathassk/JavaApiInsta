@@ -6,19 +6,19 @@ import com.example.demo.service.ValidationUser;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Service
 public class ValidationUserImpl implements ValidationUser {
-  @Autowired
+
   private SpringAuthenticationWithJwt jwtTokenUtil;
 
   @Autowired
-  private UserDetailsServiceWithJwt userDetailsService;
+  public ValidationUserImpl(SpringAuthenticationWithJwt jwtTokenUtil) {
+    this.jwtTokenUtil = jwtTokenUtil;
+  }
 
   @Override
   public String authenticate(JwtRequest user) {
-      return jwtTokenUtil.generateToken(user);
+    return jwtTokenUtil.generateToken(user);
   }
 }
