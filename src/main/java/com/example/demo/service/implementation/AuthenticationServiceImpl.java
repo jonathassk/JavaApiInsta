@@ -1,5 +1,6 @@
 package com.example.demo.service.implementation;
 
+import com.example.demo.exceptions.UserAlreadyExistAuthenticationException;
 import com.example.demo.model.JwtRequest;
 import com.example.demo.model.JwtResponse;
 import com.example.demo.model.User;
@@ -22,27 +23,33 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   @Override
   public JwtResponse auth(JwtRequest jwtRequest) {
+    System.out.println(jwtRequest.getUsername());
     User user = this.userRepository.findByUsernameAndAndPassword(jwtRequest.getUsername(), jwtRequest.getPassword());
-    if (user == null) {
+    if (user != null) {
       return JwtResponse.builder()
-              .token("User doesn't exist.")
+              .token(validationUser.authenticate(jwtRequest))
               .build();
+    } else {
+      return null;
     }
-    return JwtResponse.builder()
-            .token(validationUser.authenticate(jwtRequest))
-            .build();
+
   }
 
   @Override
-  public JwtResponse create(JwtRequest jwtRequest) {
+  public JwtResponse create(JwtRequest jwtRequest) throws UserAlreadyExistAuthenticationException {
     User user = new User();
     user.setName(jwtRequest.getName());
     user.setPassword(jwtRequest.getPassword());
     user.setUsername(jwtRequest.getUsername());
     user.setDescription(jwtRequest.getDescription());
-    this.userRepository.save(user);
-    return JwtResponse.builder()
-            .token(validationUser.authenticate(jwtRequest))
-            .build();
+    if (this.userRepository.findByUsername(user.getUsername()) == null) {
+      this.userRepository.save(user);
+      return JwtResponse.builder()
+              .token(validationUser.authenticate(jwtRequest))
+              .build();
+    } else {
+      throw new UserAlreadyExistAuthenticationException("User already exists!");
+    }
+
   }
 }

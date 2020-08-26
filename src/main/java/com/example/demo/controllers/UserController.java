@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.UserAlreadyExistAuthenticationException;
 import com.example.demo.model.JwtRequest;
 import com.example.demo.model.JwtResponse;
 import com.example.demo.model.User;
@@ -26,7 +27,7 @@ public class UserController {
 
   @ResponseStatus(HttpStatus.OK)
   @PostMapping("/create")
-  public JwtResponse saveAuthenticationToken(@RequestBody JwtRequest auth) {
+  public JwtResponse saveAuthenticationToken(@RequestBody JwtRequest auth) throws UserAlreadyExistAuthenticationException {
     return authenticationService.create(auth);
   }
 }

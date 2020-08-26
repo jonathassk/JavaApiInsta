@@ -18,14 +18,7 @@ public class ValidationUserImpl implements ValidationUser {
   private UserDetailsServiceWithJwt userDetailsService;
 
   @Override
-  public String authenticate(JwtRequest auth) {
-    UserDetails userDetails = userDetailsService.loadUserByUsername(auth.getUsername());
-
-    if(userDetails.getUsername().equalsIgnoreCase(auth.getUsername())
-            && userDetails.getPassword().equalsIgnoreCase(auth.getPassword())) {
-      return jwtTokenUtil.generateToken(auth);
-    } else {
-      return "USER DON'T EXISTS";
-    }
+  public String authenticate(JwtRequest user) {
+      return jwtTokenUtil.generateToken(user);
   }
 }
