@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,8 +18,12 @@ public class User implements Serializable {
   private String username;
   private String password;
   private String description;
+  @OneToMany(mappedBy = "photographer")
+  private List<Photo> photoList;
 
-  public User () {}
+  public User () {
+    photoList = new ArrayList<>();
+  }
 
   public User (long id, String name, String username, String password, String description) {
     this.description = description;
@@ -25,6 +31,7 @@ public class User implements Serializable {
     this.name = name;
     this.password = password;
     this.username = username;
+    photoList = new ArrayList<>();
   }
 
   public String getName() {

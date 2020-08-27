@@ -18,7 +18,7 @@ public class Photo {
   private Instant moment;
   @ManyToOne
   @JoinColumn(name = "user_ID")
-  private User user;
+  private User photographer;
 
   public Photo () {}
 
@@ -34,7 +34,7 @@ public class Photo {
   }
 
   public User getUser() {
-    return user;
+    return photographer;
   }
 
   public Instant getMoment() {
@@ -65,7 +65,7 @@ public class Photo {
     this.url = url;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setPhotographer(User photographer) {
+    this.photographer = photographer;
   }
 }
