@@ -15,7 +15,7 @@ public class PhotoController {
   private final PhotoService photoService;
 
   @Autowired
-  public PhotoController (PhotoService photoService) {
+  public PhotoController(PhotoService photoService) {
     this.photoService = photoService;
   }
 

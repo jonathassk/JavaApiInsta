@@ -17,7 +17,7 @@ public class Photo {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
   private Instant moment;
   @ManyToOne
-  @JoinColumn(name = "user_ID")
+  @JoinColumn(name = "user_id")
   private User photographer;
 
   public Photo() {}

@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface UserService {
   List<User> listUsers ();
-  Set<User> listUsersByName (String name);
+  List<User> listUsersByName (String name);
 
 }

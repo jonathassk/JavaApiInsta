@@ -48,7 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     user.setUsername(jwtRequest.getUsername());
     user.setDescription(jwtRequest.getDescription());
     user.setEmail(jwtRequest.getEmail());
-    user.setStatus(UsersStatus.PRIVATE_USER);
+    user.setStatus(UsersStatus.PUBLIC_USER);
     System.out.println(this.userRepository.findByEmail(user.getEmail()));
     if (this.userRepository.findByUsername(user.getUsername()) != null || this.userRepository.findByEmail(user.getEmail()) != null) {
       throw new UserAlreadyExistAuthenticationException("User already exists!");

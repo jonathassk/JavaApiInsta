@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.List;
 
 @Service
-public class PhotoServiceImpl implements PhotoService  {
+public class PhotoServiceImpl implements PhotoService {
 
   private PhotoRepository photoRepository;
   private UserRepository userRepository;
@@ -27,7 +27,6 @@ public class PhotoServiceImpl implements PhotoService  {
   @Override
   public void addPhoto(MultipartFile photo, String description, long id) {
     Photo post = new Photo();
-    String username = "jonathas";
     post.setDescription(description);
     post.setMoment(Instant.now());
     post.setUrl("url");
@@ -39,4 +38,11 @@ public class PhotoServiceImpl implements PhotoService  {
   public List<Photo> listPhotoHome() {
     return this.photoRepository.findAll();
   }
+
+  @Override
+  public List<Photo> listByUserId(long id) {
+    return this.photoRepository.findByUserId(id);
+  }
+
+
 }
