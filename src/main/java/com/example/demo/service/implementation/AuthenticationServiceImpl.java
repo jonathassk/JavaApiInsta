@@ -4,6 +4,7 @@ import com.example.demo.exceptions.UserAlreadyExistAuthenticationException;
 import com.example.demo.model.JwtRequest;
 import com.example.demo.model.JwtResponse;
 import com.example.demo.model.User;
+import com.example.demo.model.enums.UsersStatus;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.ValidationUser;
@@ -46,13 +47,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     user.setPassword(encoder.encode(jwtRequest.getPassword()));
     user.setUsername(jwtRequest.getUsername());
     user.setDescription(jwtRequest.getDescription());
-    if (this.userRepository.findByUsername(user.getUsername()) == null) {
+    user.setEmail(jwtRequest.getEmail());
+    user.setStatus(UsersStatus.PRIVATE_USER);
+    System.out.println(this.userRepository.findByEmail(user.getEmail()));
+    if (this.userRepository.findByUsername(user.getUsername()) != null || this.userRepository.findByEmail(user.getEmail()) != null) {
+      throw new UserAlreadyExistAuthenticationException("User already exists!");
+    } else {
       this.userRepository.save(user);
       return JwtResponse.builder()
               .token(validationUser.authenticate(jwtRequest))
               .build();
-    } else {
-      throw new UserAlreadyExistAuthenticationException("User already exists!");
     }
 
   }

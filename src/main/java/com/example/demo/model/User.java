@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enums.UsersStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class User implements Serializable {
   private String name;
   private String username;
   private String password;
+  private UsersStatus status;
+  private String email;
   private String description;
   @OneToMany(mappedBy = "photographer")
   private List<Photo> photoList;
@@ -25,8 +29,10 @@ public class User implements Serializable {
     photoList = new ArrayList<>();
   }
 
-  public User (long id, String name, String username, String password, String description) {
+  public User (long id, String name, String username, String password, String description, UsersStatus status, String email) {
     this.description = description;
+    this.email = email;
+    this.status = status;
     this.id = id;
     this.name = name;
     this.password = password;
@@ -44,10 +50,6 @@ public class User implements Serializable {
 
   public String getUsername() {
     return username;
-  }
-
-  public String getDescription() {
-    return description;
   }
 
   public String getPassword() {
@@ -72,6 +74,26 @@ public class User implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public UsersStatus getStatus() {
+    return status;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setStatus(UsersStatus status) {
+    this.status = status;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setPhotoList(List<Photo> photoList) {
+    this.photoList = photoList;
   }
 
   @Override

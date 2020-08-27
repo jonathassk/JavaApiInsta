@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enums.UsersStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,15 +14,19 @@ public class JwtRequest implements UserDetails {
   private String password;
   private String name;
   private String description;
+  private UsersStatus status;
+  private String email;
   private Boolean enabled;
   private List<JwtRoles> roles;
 
   public JwtRequest() {
   }
 
-  public JwtRequest(String username, String password, Boolean enabled, List<JwtRoles> roles, String name, String description) {
+  public JwtRequest(String username, String password, Boolean enabled, List<JwtRoles> roles, String name, String description, UsersStatus status, String email) {
     this.username = username;
     this.password = password;
+    this.email = email;
+    this.status = status;
     this.enabled = enabled;
     this.roles = roles;
     this.description = description;
@@ -40,6 +45,10 @@ public class JwtRequest implements UserDetails {
     this.name = name;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
   public String getDescription() {
     return description;
   }
@@ -54,6 +63,14 @@ public class JwtRequest implements UserDetails {
 
   public String getPassword() {
     return this.password;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setStatus(UsersStatus status) {
+    this.status = status;
   }
 
   public void setPassword(String password) {

@@ -20,9 +20,9 @@ public class Photo {
   @JoinColumn(name = "user_ID")
   private User photographer;
 
-  public Photo () {}
+  public Photo() {}
 
-  public Photo (Long id, String url, String description, Instant moment) {
+  public Photo(Long id, String url, String description, Instant moment) {
     this.id = id;
     this.url = url;
     this.description = description;
@@ -51,10 +51,6 @@ public class Photo {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public void setMoment(Instant moment) {
