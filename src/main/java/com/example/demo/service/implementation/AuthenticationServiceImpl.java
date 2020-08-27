@@ -8,6 +8,7 @@ import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.ValidationUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,11 +22,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     this.validationUser = validationUser;
   }
 
+
+  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
   @Override
   public JwtResponse auth(JwtRequest jwtRequest) {
     System.out.println(jwtRequest.getUsername());
-    User user = this.userRepository.findByUsernameAndAndPassword(jwtRequest.getUsername(), jwtRequest.getPassword());
-    if (user != null) {
+    User user = this.userRepository.findByUsername(jwtRequest.getUsername());
+    if (user != null && encoder.matches(jwtRequest.getPassword(), user.getPassword())) {
       return JwtResponse.builder()
               .token(validationUser.authenticate(jwtRequest))
               .build();
@@ -39,7 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   public JwtResponse create(JwtRequest jwtRequest) throws UserAlreadyExistAuthenticationException {
     User user = new User();
     user.setName(jwtRequest.getName());
-    user.setPassword(jwtRequest.getPassword());
+    user.setPassword(encoder.encode(jwtRequest.getPassword()));
     user.setUsername(jwtRequest.getUsername());
     user.setDescription(jwtRequest.getDescription());
     if (this.userRepository.findByUsername(user.getUsername()) == null) {
