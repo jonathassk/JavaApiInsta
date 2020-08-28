@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.model.enums.UsersStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,13 +24,16 @@ public class User implements Serializable {
   private String email;
   private String description;
   @OneToMany(mappedBy = "photographer")
+  @JsonIgnore
   private List<Photo> photoList;
+  @OneToMany(mappedBy = "userComment")
+  private List<Comment> photoCommentList;
 
   public User () {
     photoList = new ArrayList<>();
   }
 
-  public User (long id, String name, String username, String password, String description, UsersStatus status, String email) {
+  public User(long id, String name, String username, String password, String description, UsersStatus status, String email, List<Comment> commentList) {
     this.description = description;
     this.email = email;
     this.status = status;
@@ -37,6 +41,7 @@ public class User implements Serializable {
     this.name = name;
     this.password = password;
     this.username = username;
+    this.photoCommentList = commentList;
     photoList = new ArrayList<>();
   }
 

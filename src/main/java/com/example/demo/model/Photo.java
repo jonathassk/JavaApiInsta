@@ -1,10 +1,12 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "photo")
@@ -19,6 +21,8 @@ public class Photo {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User photographer;
+  @OneToMany
+  private List<Comment> comments;
 
   public Photo() {}
 

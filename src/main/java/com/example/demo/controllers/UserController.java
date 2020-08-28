@@ -50,4 +50,10 @@ public class UserController {
   public List<Photo> listPhotos (@PathVariable("id") long id) {
     return this.userService.photoList(id);
   }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping("/follow/user={user}&follow={follow}")
+  public String FollowUser (@PathVariable("user") long userId, @PathVariable("follow") long followId) {
+    return this.userService.followerUser(userId, followId);
+  }
 }
