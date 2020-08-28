@@ -45,11 +45,7 @@ public class UserController {
     return this.userService.listUsersByName(body.getName());
   }
 
-  @ResponseStatus(HttpStatus.OK)
-  @GetMapping("/photos/{id}")
-  public List<Photo> listPhotos (@PathVariable("id") long id) {
-    return this.userService.photoList(id);
-  }
+
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping("/follow/user={user}&follow={follow}")

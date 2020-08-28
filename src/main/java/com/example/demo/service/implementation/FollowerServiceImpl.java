@@ -19,8 +19,8 @@ public class FollowerServiceImpl implements FollowerService {
   }
 
   @Override
-  public boolean checkIfFollow(long userId, long followerId) {
-    return false;
+  public Follower checkIfFollow(long userId, long followerId) {
+    return this.followerRepository.checkFollowerByIds(userId, followerId);
   }
 
   @Override
@@ -34,7 +34,10 @@ public class FollowerServiceImpl implements FollowerService {
   }
 
   public String followUser (long id, long followId) {
-    Follower isFollowing = this.followerRepository.checkFollowerByIds(id, followId);
+    if (id == followId) {
+      return "id equals follower id";
+    }
+    Follower isFollowing = this.checkIfFollow(id, followId);
     if (isFollowing != null) {
       this.followerRepository.delete(isFollowing);
       return "stop following";
