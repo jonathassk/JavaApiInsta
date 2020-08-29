@@ -1,4 +1,4 @@
-package com.example.demo.exceptions;
+package com.example.demo.service.exceptions;
 
 import javax.security.sasl.AuthenticationException;
 

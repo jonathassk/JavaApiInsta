@@ -5,6 +5,7 @@ import com.example.demo.model.User;
 import com.example.demo.repositories.PhotoRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.UserService;
+import com.example.demo.service.exceptions.ResourceNotFoundException;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -69,6 +70,15 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
+  public User readUser(long id) {
+    User user = this.userRepository.findById(id);
+    if (user == null) {
+      throw new ResourceNotFoundException("userId", id);
+    } else {
+      return user;
+    }
+  }
 
   public List<Photo> photoList(long id) { return this.photoRepository.findByUserId(id); }
 

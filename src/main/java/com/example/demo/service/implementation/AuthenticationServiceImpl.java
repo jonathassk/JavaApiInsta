@@ -1,6 +1,6 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.exceptions.UserAlreadyExistAuthenticationException;
+import com.example.demo.service.exceptions.UserAlreadyExistAuthenticationException;
 import com.example.demo.model.JwtRequest;
 import com.example.demo.model.JwtResponse;
 import com.example.demo.model.User;

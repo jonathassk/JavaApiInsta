@@ -1,9 +1,12 @@
 package com.example.demo.service.implementation;
 
 import com.example.demo.model.Photo;
+import com.example.demo.model.User;
 import com.example.demo.repositories.PhotoRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.PhotoService;
+import com.example.demo.service.exceptions.ResourceNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +33,11 @@ public class PhotoServiceImpl implements PhotoService {
     post.setDescription(description);
     post.setMoment(Instant.now());
     post.setUrl("url");
-    post.setPhotographer(this.userRepository.findById(id));
+    User user = this.userRepository.findById(id);
+    if (user == null) {
+      throw new ResourceNotFoundException("userId", id);
+    }
+    post.setPhotographer(user);
     this.photoRepository.save(post);
   }
 
