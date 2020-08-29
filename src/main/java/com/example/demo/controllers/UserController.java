@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.model.UserWithPhotos;
 import com.example.demo.service.exceptions.UserAlreadyExistAuthenticationException;
 import com.example.demo.model.JwtRequest;
 import com.example.demo.model.JwtResponse;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -50,9 +52,9 @@ public class UserController {
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @GetMapping("/{id}")
-  public User getUser (@PathVariable("id") long id) {
-    return this.userService.readUser(id);
+  @GetMapping({"/{myId}/user/{id}"})
+  public UserWithPhotos getUser (@PathVariable("id") long id, @PathVariable("myId") long myId) {
+    return this.userService.readUser(id, myId);
   }
 
   @ResponseStatus(HttpStatus.OK)

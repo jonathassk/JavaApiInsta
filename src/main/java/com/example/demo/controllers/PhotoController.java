@@ -30,7 +30,7 @@ public class PhotoController {
     return this.photoService.listPhotoHome();
   }
 
-  @PostMapping("/upload")
+  @PostMapping("/upload") //id = id do user
   public void addPhoto (@RequestParam("file") MultipartFile photo, String description, @RequestParam("id") long id) {
     this.photoService.addPhoto(photo, description, id);
   }
