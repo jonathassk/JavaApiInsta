@@ -52,4 +52,16 @@ public class UserController {
   public String FollowUser (@PathVariable("user") long userId, @PathVariable("follow") long followId) {
     return this.userService.followerUser(userId, followId);
   }
+
+  @ResponseStatus(HttpStatus.OK)
+  @PutMapping("/update")
+  public User updateUser (@RequestBody User updatedUser) {
+    return this.userService.updateUser(updatedUser);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @DeleteMapping("/delete/{id}")
+  public String deleteUser (@PathVariable("id") long id) {
+    return this.userService.deleteUser(id);
+  }
 }

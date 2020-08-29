@@ -74,8 +74,13 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.20.Final</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
