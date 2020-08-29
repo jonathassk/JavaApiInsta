@@ -33,16 +33,16 @@ public class UserController {
     return this.authenticationService.auth(auth);
   }
 
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/create")
   public JwtResponse saveAuthenticationToken(@RequestBody JwtRequest auth) throws UserAlreadyExistAuthenticationException {
     return this.authenticationService.create(auth);
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @PostMapping("/list")
-  public List<User> listByName (@RequestBody User body) {
-    return this.userService.listUsersByName(body.getName());
+  @GetMapping("/list/{name}")
+  public List<User> listByName (@PathVariable("name") String name) {
+    return this.userService.listUsersByName(name);
   }
 
 
@@ -54,12 +54,12 @@ public class UserController {
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @PutMapping("/update")
+  @PatchMapping("/update")
   public User updateUser (@RequestBody User updatedUser) {
     return this.userService.updateUser(updatedUser);
   }
 
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping("/delete/{id}")
   public String deleteUser (@PathVariable("id") long id) {
     return this.userService.deleteUser(id);
