@@ -2,6 +2,8 @@ package com.example.demo.service.implementation;
 
 import com.example.demo.model.Photo;
 import com.example.demo.model.User;
+import com.example.demo.model.UserWithPhotos;
+import com.example.demo.model.enums.UsersStatus;
 import com.example.demo.repositories.PhotoRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -71,13 +74,18 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User readUser(long id) {
+  public UserWithPhotos readUser(long id, long myId) {
     User user = this.userRepository.findById(id);
+    User myUser = this.userRepository.findById(myId);
+    UserWithPhotos result = new UserWithPhotos();
     if (user == null) {
       throw new ResourceNotFoundException("userId", id);
-    } else {
-      return user;
     }
+    if (user.getStatus() == UsersStatus.PUBLIC_USER || user.getId() == myUser.getId() || this.followerService.checkIfFollow(id, myId) != null) {
+      result.setPhoto(this.photoRepository.findByUserId(id));
+    }
+    result.setUser(this.userRepository.findById(id));
+    return result;
   }
 
   public List<Photo> photoList(long id) { return this.photoRepository.findByUserId(id); }
