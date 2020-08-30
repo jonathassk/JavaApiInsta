@@ -65,4 +65,9 @@ public class PhotoServiceImpl implements PhotoService {
     return this.photoRepository.findByUserId(id);
   }
 
+  @Override
+  public Photo getPhoto(long id) {
+    return this.photoRepository.findById(id);
+  }
+
 }

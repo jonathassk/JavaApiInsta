@@ -11,4 +11,5 @@ public interface PhotoService {
   List<Photo> listPhotoHome ();
   String setURI(long id);
   List<Photo> listByUserId (long id);
+  Photo getPhoto (long id);
 }

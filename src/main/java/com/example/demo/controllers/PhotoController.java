@@ -1,16 +1,22 @@
 package com.example.demo.controllers;
 
 import com.example.demo.model.Photo;
+import com.example.demo.model.UserWithPhotos;
 import com.example.demo.service.PhotoService;
 import com.example.demo.service.implementation.PhotoServiceImpl;
 import com.example.demo.service.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @RestController
@@ -33,15 +39,17 @@ public class PhotoController {
 
   @PostMapping("/upload") //id = id do user
   public String addPhoto (@RequestParam("file") MultipartFile photo, String description, @RequestParam("id") long id) {
-    Photo photoResponse = this.photoService.addPhoto(photo, description, id);
-    String fileDownloadUri = this.photoService.setURI(id);
-
-    return fileDownloadUri;
+    this.photoService.addPhoto(photo, description, id);
+    return this.photoService.setURI(id);
   }
 
-  @ResponseStatus(HttpStatus.OK)
-  @GetMapping("/user={id}")
-  public List<Photo> listPhotos (@PathVariable("id") long id) {
-    return this.userService.photoList(id);
+
+
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<?> showPhoto (@PathVariable("id") long id) {
+    Photo photo = this.photoService.getPhoto(id);
+    return ResponseEntity.status(200).body(photo);
   }
+
+
 }
