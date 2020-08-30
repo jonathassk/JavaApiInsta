@@ -44,7 +44,6 @@ public class PhotoController {
   }
 
 
-
   @GetMapping(value = "/{id}")
   public ResponseEntity<?> showPhoto (@PathVariable("id") long id) {
     Photo photo = this.photoService.getPhoto(id);
