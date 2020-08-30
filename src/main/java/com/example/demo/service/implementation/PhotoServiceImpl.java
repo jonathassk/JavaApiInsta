@@ -56,6 +56,7 @@ public class PhotoServiceImpl implements PhotoService {
             .path("/download-file/")
             .path(Long.toString(photo.getId()))
             .toUriString();
+    photo.setUrl(fileDownloadUri);
     return fileDownloadUri;
   }
 
