@@ -88,6 +88,9 @@ public class PhotoServiceImpl implements PhotoService {
     if (photo == null) {
       throw new ResourceNotFoundException("photoId", id);
     } else {
+      if (description == "") {
+        throw new IllegalArgumentException("description is obrigatory!");
+      }
       photo.setDescription(description);
       this.photoRepository.save(photo);
       return photo;

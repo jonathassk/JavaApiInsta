@@ -2,8 +2,12 @@ package com.example.demo.model;
 
 import com.example.demo.model.enums.UsersStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +21,18 @@ public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @NotNull
+  @Size(min = 3, max = 100, message = "name should be greather than 3 characters")
   private String name;
+  @NotNull
+  @Size(min = 3, max = 50, message = "username should be greather than 3 characters")
   private String username;
+  @NotNull
+  @Size(min = 6, max = 10, message = "password should be greather than 6 characters")
   private String password;
+
   private UsersStatus status;
+  @Email(message = "Email should be valid")
   private String email;
   private String description;
   @OneToMany(mappedBy = "photographer")
