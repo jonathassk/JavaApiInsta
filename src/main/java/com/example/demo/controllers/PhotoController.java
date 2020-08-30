@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -31,8 +32,11 @@ public class PhotoController {
   }
 
   @PostMapping("/upload") //id = id do user
-  public void addPhoto (@RequestParam("file") MultipartFile photo, String description, @RequestParam("id") long id) {
-    this.photoService.addPhoto(photo, description, id);
+  public String addPhoto (@RequestParam("file") MultipartFile photo, String description, @RequestParam("id") long id) {
+    Photo photoResponse = this.photoService.addPhoto(photo, description, id);
+    String fileDownloadUri = this.photoService.setURI(id);
+
+    return fileDownloadUri;
   }
 
   @ResponseStatus(HttpStatus.OK)

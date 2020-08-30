@@ -7,8 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface PhotoService {
-  void addPhoto(MultipartFile file, String description, long id);
+  Photo addPhoto(MultipartFile file, String description, long id);
   List<Photo> listPhotoHome ();
-
+  String setURI(long id);
   List<Photo> listByUserId (long id);
 }

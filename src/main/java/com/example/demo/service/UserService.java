@@ -11,4 +11,5 @@ public interface UserService {
   User updateUser (User user);
   String deleteUser (long id);
   UserWithPhotos readUser (long id, long myId);
+  User changeVisibility (long id);
 }

@@ -88,6 +88,22 @@ public class UserServiceImpl implements UserService {
     return result;
   }
 
+  @Override
+  public User changeVisibility(long id) {
+    if (this.userRepository.findById(id) == null) {
+      throw new ResourceNotFoundException("userId", id);
+    } else {
+      User user = this.userRepository.findById(id);
+      if (user.getStatus() == UsersStatus.PUBLIC_USER) {
+        user.setStatus(UsersStatus.PRIVATE_USER);
+      } else {
+        user.setStatus(UsersStatus.PUBLIC_USER);
+      }
+      this.userRepository.save(user);
+      return user;
+    }
+  }
+
   public List<Photo> photoList(long id) { return this.photoRepository.findByUserId(id); }
 
   public String followerUser (long userId, long followId) {

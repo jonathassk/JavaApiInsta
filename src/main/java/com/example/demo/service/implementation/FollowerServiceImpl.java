@@ -29,6 +29,16 @@ public class FollowerServiceImpl implements FollowerService {
   }
 
   @Override
+  public List<User> findFollowings(String username) {
+    return null;
+  }
+
+
+  public List<User> findFollowers(String username) {
+    return null;
+  }
+
+
   public List<User> findFollowings(long UserId) {
     return null;
   }

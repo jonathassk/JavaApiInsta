@@ -68,4 +68,10 @@ public class UserController {
   public String deleteUser (@PathVariable("id") long id) {
     return this.userService.deleteUser(id);
   }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping("/change-visibility/{id}")
+  public User changeVisibility (@PathVariable("id") long id) {
+    return this.userService.changeVisibility(id);
+  }
 }
