@@ -1,13 +1,19 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Entity
 public class Comment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @NotNull
+  @Length(min = 3, max = 100, message = "name should be greater than 3 characters")
   private String comment;
   @ManyToOne
   @JoinColumn(name = "user_id")

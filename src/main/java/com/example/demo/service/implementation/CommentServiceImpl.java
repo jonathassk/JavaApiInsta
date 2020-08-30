@@ -38,4 +38,16 @@ public class CommentServiceImpl implements CommentService {
     this.commentRepository.save(comment);
     return comment;
   }
+
+  @Override
+  public String deleteComment(long id) {
+    Comment comment = this.commentRepository.findCommentById(id);
+    this.commentRepository.delete(comment);
+    return "deleted comment";
+  }
+
+  @Override
+  public Comment updateComment(long id, String comment) {
+    return null;
+  }
 }
