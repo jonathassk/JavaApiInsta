@@ -57,6 +57,7 @@ public class PhotoServiceImpl implements PhotoService {
             .path(Long.toString(photo.getId()))
             .toUriString();
     photo.setUrl(fileDownloadUri);
+    this.photoRepository.save(photo);
     return fileDownloadUri;
   }
 
@@ -69,5 +70,16 @@ public class PhotoServiceImpl implements PhotoService {
   public Photo getPhoto(long id) {
     return this.photoRepository.findById(id);
   }
+
+  @Override
+  public String removePhoto(long id) {
+    Photo photo = this.photoRepository.findById(id);
+    if (photo == null) {
+      throw new ResourceNotFoundException("photoId", id);
+    }
+    this.photoRepository.delete(photo);
+    return "photo removed";
+  }
+
 
 }

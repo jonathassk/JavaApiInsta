@@ -39,8 +39,8 @@ public class PhotoController {
 
   @PostMapping("/upload") //id = id do user
   public String addPhoto (@RequestParam("file") MultipartFile photo, String description, @RequestParam("id") long id) {
-    this.photoService.addPhoto(photo, description, id);
-    return this.photoService.setURI(id);
+    Photo response = this.photoService.addPhoto(photo, description, id);
+    return this.photoService.setURI(response  .getId());
   }
 
 
@@ -50,5 +50,9 @@ public class PhotoController {
     return ResponseEntity.status(200).body(photo);
   }
 
-
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deletePhoto (@PathVariable("id") long id) {
+    this.photoService.removePhoto(id);
+    return ResponseEntity.status(200).body("photo removed");
+  }
 }
