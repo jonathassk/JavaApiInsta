@@ -13,4 +13,5 @@ public interface PhotoService {
   List<Photo> listByUserId (long id);
   Photo getPhoto (long id);
   String removePhoto (long id);
+  Photo updateDescription (long id, String description);
 }

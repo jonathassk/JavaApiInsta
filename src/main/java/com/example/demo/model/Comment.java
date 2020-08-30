@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 @Entity
 public class Comment {
@@ -12,6 +14,7 @@ public class Comment {
   private User userComment;
   @ManyToOne
   @JoinColumn(name = "photo_id")
+  @JsonIgnore
   private Photo photo;
 
   public Comment() {}

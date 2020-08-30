@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.model.Comment;
 import com.example.demo.model.Photo;
 import com.example.demo.model.UserWithPhotos;
 import com.example.demo.service.PhotoService;
@@ -40,7 +41,7 @@ public class PhotoController {
   @PostMapping("/upload") //id = id do user
   public String addPhoto (@RequestParam("file") MultipartFile photo, String description, @RequestParam("id") long id) {
     Photo response = this.photoService.addPhoto(photo, description, id);
-    return this.photoService.setURI(response  .getId());
+    return this.photoService.setURI(response.getId());
   }
 
 
@@ -54,5 +55,12 @@ public class PhotoController {
   public ResponseEntity<String> deletePhoto (@PathVariable("id") long id) {
     this.photoService.removePhoto(id);
     return ResponseEntity.status(200).body("photo removed");
+  }
+
+  @PostMapping("/edit/{id}")
+  public ResponseEntity<Photo> updateDescription (@PathVariable("id") long id,@RequestBody Photo description) {
+    String descText = description.getDescription();
+    Photo response = this.photoService.updateDescription(id, descText);
+    return ResponseEntity.status(200).body(response);
   }
 }
