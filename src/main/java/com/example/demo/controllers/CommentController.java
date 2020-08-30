@@ -25,10 +25,18 @@ public class CommentController {
     return response;
   }
 
-  @DeleteMapping("/photo/{id}")
+  @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public String deleteComment (@PathVariable("id") long id) {
     return this.commentService.deleteComment(id);
+  }
+
+  @PatchMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public Comment postComment (@PathVariable("id") long id, @RequestBody Comment comment) {
+    String commentText = comment.getComment();
+    Comment response = this.commentService.updateComment(id, commentText);
+    return response;
   }
 
 }

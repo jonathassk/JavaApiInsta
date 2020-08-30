@@ -51,7 +51,16 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public Comment updateComment(long id, String comment) {
-    return null;
+  public Comment updateComment(long id, String text) {
+    Comment comment = this.commentRepository.findCommentById(id);
+    if (comment == null) {
+      throw new ResourceNotFoundException("commentId", id);
+    }
+    if (text == null) {
+      throw new IllegalArgumentException("commentary is necessary!");
+    }
+    comment.setComment(text);
+    this.commentRepository.save(comment);
+    return comment;
   }
 }
