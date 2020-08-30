@@ -28,7 +28,6 @@ public class User implements Serializable {
   @Length(min = 3, max = 50, message = "username should be greather than 3 characters")
   private String username;
   @NotNull
-  @Length(min = 6, max = 50, message = "password should be greather than 6 characters")
   private String password;
 
   private UsersStatus status;

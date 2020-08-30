@@ -7,6 +7,7 @@ import com.example.demo.repositories.CommentRepository;
 import com.example.demo.repositories.PhotoRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.CommentService;
+import com.example.demo.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,9 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public String deleteComment(long id) {
     Comment comment = this.commentRepository.findCommentById(id);
+    if (comment == null) {
+      throw new ResourceNotFoundException("commentId", id);
+    }
     this.commentRepository.delete(comment);
     return "deleted comment";
   }

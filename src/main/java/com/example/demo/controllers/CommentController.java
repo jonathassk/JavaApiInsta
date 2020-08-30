@@ -19,9 +19,16 @@ public class CommentController {
 
   @PostMapping("/photo={photoid}&user={userid}")
   @ResponseStatus(HttpStatus.OK)
-  public Comment postMapping (@PathVariable("photoid") long photoId, @PathVariable("userid") long userId,@RequestBody Comment comment) {
+  public Comment postComment (@PathVariable("photoid") long photoId, @PathVariable("userid") long userId,@RequestBody Comment comment) {
     String commentText = comment.getComment();
     Comment response = this.commentService.createComment(photoId, userId, commentText);
     return response;
   }
+
+  @DeleteMapping("/photo/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public String deleteComment (@PathVariable("id") long id) {
+    return this.commentService.deleteComment(id);
+  }
+
 }
