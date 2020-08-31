@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "Followers")
 public class Comment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.Comment;
 import com.example.demo.model.Photo;
+import com.example.demo.model.PhotoWithComments;
 import com.example.demo.model.UserWithPhotos;
 import com.example.demo.service.PhotoService;
 import com.example.demo.service.implementation.PhotoServiceImpl;
@@ -46,8 +47,8 @@ public class PhotoController {
 
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<?> showPhoto (@PathVariable("id") long id) {
-    Photo photo = this.photoService.getPhoto(id);
+  public ResponseEntity<PhotoWithComments> showPhoto (@PathVariable("id") long id) {
+    PhotoWithComments photo = this.photoService.getPhoto(id);
     return ResponseEntity.status(200).body(photo);
   }
 

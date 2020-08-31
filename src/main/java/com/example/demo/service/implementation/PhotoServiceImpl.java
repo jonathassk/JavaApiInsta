@@ -1,7 +1,9 @@
 package com.example.demo.service.implementation;
 
 import com.example.demo.model.Photo;
+import com.example.demo.model.PhotoWithComments;
 import com.example.demo.model.User;
+import com.example.demo.repositories.CommentRepository;
 import com.example.demo.repositories.PhotoRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.PhotoService;
@@ -20,12 +22,14 @@ import java.util.Optional;
 public class PhotoServiceImpl implements PhotoService {
 
   private PhotoRepository photoRepository;
+  private CommentRepository commentRepository;
   private UserRepository userRepository;
 
   public PhotoServiceImpl () {}
   @Autowired
-  public PhotoServiceImpl (PhotoRepository photoRepository, UserRepository userRepository) {
+  public PhotoServiceImpl (PhotoRepository photoRepository, UserRepository userRepository, CommentRepository commentRepository) {
     this.photoRepository = photoRepository;
+    this.commentRepository = commentRepository;
     this.userRepository = userRepository;
   }
 
@@ -67,9 +71,14 @@ public class PhotoServiceImpl implements PhotoService {
   }
 
   @Override
-  public Photo getPhoto(long id) {
-    return this.photoRepository.findById(id);
-
+  public PhotoWithComments getPhoto(long id) {
+    PhotoWithComments response = new PhotoWithComments();
+    if (this.photoRepository.findById(id) == null) {
+      throw new ResourceNotFoundException("photo Id", id);
+    }
+    response.setPhoto(this.photoRepository.findById(id));
+    response.setComments(this.commentRepository.findCommentsByPhotoId(id));
+    return response;
   }
 
   @Override
