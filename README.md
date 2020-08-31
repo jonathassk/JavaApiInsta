@@ -17,6 +17,7 @@ As dependencias utilizadas foram Spring data JPA, Hibernate, Spring Security, Po
   - Parar de seguir
   - verificar se segue
   - mostrar fotos do usuario apenas se seguir caso ele seja do tipo privado
+  - Exibir seguidores
   
 **3. Photos**
   - Postar
