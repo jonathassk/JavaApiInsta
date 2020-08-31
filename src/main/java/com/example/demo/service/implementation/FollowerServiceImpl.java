@@ -3,9 +3,11 @@ package com.example.demo.service.implementation;
 import com.example.demo.model.Follower;
 import com.example.demo.model.User;
 import com.example.demo.repositories.FollowerRepository;
+import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.FollowerService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +15,11 @@ import java.util.Optional;
 public class FollowerServiceImpl implements FollowerService {
 
   private FollowerRepository followerRepository;
+  private UserRepository userRepository;
 
-  public FollowerServiceImpl (FollowerRepository followerRepository) {
+  public FollowerServiceImpl (FollowerRepository followerRepository, UserRepository userRepository) {
     this.followerRepository = followerRepository;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -25,22 +29,12 @@ public class FollowerServiceImpl implements FollowerService {
 
   @Override
   public List<User> findFollowers(long userId) {
-    return null;
-  }
-
-  @Override
-  public List<User> findFollowings(String username) {
-    return null;
-  }
-
-
-  public List<User> findFollowers(String username) {
-    return null;
-  }
-
-
-  public List<User> findFollowings(long UserId) {
-    return null;
+    List<Follower> result = this.followerRepository.checkFollowers(userId);
+    List<User> users = new ArrayList<>();
+    for (Follower follower: result) {
+      users.add(this.userRepository.findById(follower.getUserId()));
+    }
+    return users;
   }
 
   public String followUser (long id, long followId) {

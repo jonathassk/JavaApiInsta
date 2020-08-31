@@ -8,5 +8,4 @@ import java.util.List;
 public interface FollowerService {
   Follower checkIfFollow (long userId, long followerId);
   List<User> findFollowers (long userId);
-  List<User> findFollowings (String username);
 }
