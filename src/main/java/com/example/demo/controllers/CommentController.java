@@ -33,7 +33,7 @@ public class CommentController {
 
   @PatchMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Comment postComment (@PathVariable("id") long id, @RequestBody Comment comment) {
+  public Comment updateComment (@PathVariable("id") long id, @RequestBody Comment comment) {
     String commentText = comment.getComment();
     Comment response = this.commentService.updateComment(id, commentText);
     return response;
